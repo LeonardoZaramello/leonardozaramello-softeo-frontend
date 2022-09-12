@@ -24,22 +24,6 @@ export function UsersTable<T extends user>(props: User<T>) {
   // updatedAt: Date
   // userName: string
   // value: number
-  const list = [{
-    nome: 'a',
-    idade: 21
-  },
-  {
-    nome: 'b',
-    idade: 21
-  },
-  {
-    nome: 'c',
-    idade: 21
-  },
-  {
-    nome: 'd',
-    idade: 21
-  }]
   console.log(props.users);
   return (
     <div>
@@ -49,16 +33,16 @@ export function UsersTable<T extends user>(props: User<T>) {
             <th>Cliente</th>
             <th>Serviço</th>
             <th>Valor</th>
-            <th>Parcela</th>
+            <th>Parcelas</th>
           </tr>
         </thead>
         <tbody>
           {
             props.users.map((user, index) => (
-              <tr key={index}>
+              <tr key={user._id}>
                 <td>{user.userName}</td>
                 <td>{user.service}</td>
-                <td>{user.value}</td>
+                <td>{user.value * user.instalment}</td>
                 <td>{user.instalment}</td>
               </tr>
             ))

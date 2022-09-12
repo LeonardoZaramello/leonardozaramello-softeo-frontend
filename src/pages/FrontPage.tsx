@@ -6,10 +6,11 @@ export function FrontPage() {
   const [users, setUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
+  console.log(import.meta.env.VITE_DB_URL);
   useEffect(() => {
     const fetchApi = async () => {
       try {
-        const users = await axios.get('http://localhost:3001/users');
+        const users = await axios.get(import.meta.env.VITE_DB_URL || 'http://localhost:3001/users');
         
         setUsers(users.data);
       } catch (error) {
