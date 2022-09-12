@@ -24,8 +24,8 @@ export function FrontPage() {
   
   // console.log(users);
   return (
-    <div>
-      <h1 className="text-green-600 bg-black">Anotações</h1>
+    <div className="p-5 h-screen bg-gray-100">
+      <h1 className="text-xl mb-2">Caderno de Anotações</h1>
       <UsersTable users={users}/>
     </div>
   );
