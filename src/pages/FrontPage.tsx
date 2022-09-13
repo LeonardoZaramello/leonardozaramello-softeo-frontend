@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ServiceForm } from "../components/ServiceForm";
 import { UsersTable } from "../components/UsersTable";
 
 export function FrontPage() {
   const [users, setUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  console.log(import.meta.env.VITE_DB_URL);
   useEffect(() => {
     const fetchApi = async () => {
       try {
@@ -22,10 +22,11 @@ export function FrontPage() {
     fetchApi();
   }, []);
   
-  // console.log(users);
+  console.log(users);
   return (
-    <div className="p-5 h-screen bg-gray-100">
+    <div>
       <h1 className="text-xl mb-2">Caderno de Anotações</h1>
+      <ServiceForm />
       <UsersTable users={users}/>
     </div>
   );

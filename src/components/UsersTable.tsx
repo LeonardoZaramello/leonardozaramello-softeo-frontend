@@ -1,4 +1,9 @@
-import { UsersTableInfos } from "./UsersTableInfos"
+import {Button, Popconfirm, Table} from 'antd'
+import type { ColumnsType } from 'antd/es/table';
+import axios from 'axios';
+import {format, intlFormat} from 'date-fns'
+import { useEffect, useState } from 'react';
+import { DeleteButton } from './DeleteButton';
 
 interface user {
   _id: string
@@ -18,69 +23,136 @@ type User<T> = {
 }
 
 export function UsersTable<T extends user>(props: User<T>) {
-  // {
-  //   "_id": "631ee73016a8950108a31126",
-  //   "userName": "Gustavo",
-  //   "service": "Limpeza",
-  //   "value": 300,
-  //   "instalment": 3,
-  //   "firsPaymentDay": "2022-06-05T00:00:00.000Z",
-  //   "payed": true,
-  //   "instalmentInfos": [
-  //   {
-  //   "number": 1,
-  //   "value": "100.00",
-  //   "paymentDay": "2022-06-05T00:00:00.000Z",
-  //   "payed": true
-  //   },
-  //   {
-  //   "number": 2,
-  //   "value": "100.00",
-  //   "paymentDay": "2022-08-04T00:00:00.000Z",
-  //   "payed": false
-  //   },
-  //   {
-  //   "number": 3,
-  //   "value": "100.00",
-  //   "paymentDay": "2022-09-03T00:00:00.000Z",
-  //   "payed": false
-  //   }
-  //   ],
-  //   "createdAt": "2022-09-12T08:00:48.520Z",
-  //   "updatedAt": "2022-09-12T08:00:48.520Z",
-  //   "__v": 0
-  //   },
-  console.log(props.users);
 
-  function bgColor(index:number) {
-    if(index % 2 === 0) return 'bg-white'
-    return 'bg-gray-100'
+  async function handleDeleteInstalment(record:any): Promise<void> {
+    try {
+      console.log(record);
+      
+      // await axios.delete(`${import.meta.env.VITE_DB_URL}/${user.key}`)
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  async function handleDelete(user: DataType): Promise<void> {
+    try {
+      await axios.delete(`${import.meta.env.VITE_DB_URL}/${user.key}`)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  interface DataType {
+    key: React.Key;
+    cliente: string;
+    serviço: string;
+    valor: number;
+    parcelas: number;
+    data: string;
+  }
+  interface nestedDataType {
+    key: React.Key;
+    parcela: string;
+    valor: string;
+    dia: number;
+    pago: string;
+  }
+
+  type nestedType = {
+    number: number;
+    value: string;
+    paymentDay: string;
+    payed: boolean;
+  }
+
+  const columns: ColumnsType<DataType> = [
+    { title: 'Cliente', dataIndex: 'cliente', key: 'cliente' },
+    { title: 'Serviço', dataIndex: 'serviço', key: 'serviço' },
+    { title: 'Valor', dataIndex: 'valor', key: 'valor' },
+    { title: 'Parcelas', dataIndex: 'parcelas', key: 'parcelas' },
+    { title: 'Data', dataIndex: 'data', key: 'data' },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      align: 'center',
+      render: (_, user) => {    
+        return (    
+        <Popconfirm 
+          title={'Tem certeza que deseja deletar?'}
+          onConfirm={() => handleDelete(user)}
+        >
+          <Button danger type="primary">
+            Delete
+          </Button>
+        </Popconfirm>
+        )
+      },
+    },
+  ];
+
+  const nestedColumns: ColumnsType<nestedDataType> = [
+    { title: 'Parcela', dataIndex: 'parcela', key: 'parcela' },
+    { title: 'Valor', dataIndex: 'valor', key: 'valor' },
+    { title: 'Dia', dataIndex: 'dia', key: 'dia' },
+    { title: 'Pago', dataIndex: 'pago', key: 'pago' },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      align: 'center',
+      render: (_, record) => {    
+        return (    
+        <Popconfirm 
+          title={'Tem certeza que deseja deletar?'}
+          onConfirm={() => handleDeleteInstalment(record)}
+        >
+          <Button danger type="primary" size="small">
+            Delete
+          </Button>
+        </Popconfirm>
+        )
+      },
+    },
+  ];
+
+  const data: DataType[] = [];
+  const nestedData: any[] = [];
+
+  props.users?.map((user, index) =>{
+    const userBody = {
+      key: user._id,
+      cliente: user.userName,
+      serviço: user.service,
+      valor: user.value,
+      parcelas: user.instalment,
+      data: format(new Date(user.firsPaymentDay), "dd/MM/yyyy"),
+    }
+
+    const userListInfos: any = []
+    user.instalmentInfos.map((info: nestedType,index:number) => {
+      const userInfos = {
+        key: index,
+        parcela: info.number,
+        valor: info.value,
+        dia: format(new Date(info.paymentDay), "dd/MM/yyyy"),
+        pago: info.payed ? 'Pago': 'Pendente',
+      }
+      userListInfos.push(userInfos)
+    })
+
+    nestedData.push(userListInfos)
+    data.push(userBody)
+  })
+
   return (
-    <div className="overflow-auto rounded-lg shadow">
-      <table className="w-full">
-        <thead className="bg-gray-50 border-b-2 border-gray-200">
-          <tr>
-            <th className="p-3 text-sm font-semibold tracking-wide text-left">Cliente</th>
-            <th className="p-3 text-sm font-semibold tracking-wide text-left">Serviço</th>
-            <th className="p-3 text-sm font-semibold tracking-wide text-left">Valor</th>
-            <th className="p-3 text-sm font-semibold tracking-wide text-left">Parcelas</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-300">
-          {
-            props.users?.map((user, index) => (
-              <tr key={index} className={`flex ${bgColor(index)} hover:bg-blue-100 cursor-pointer`}>
-                <td className="w-24 p-3 text-sm text-gray-700 whitespace-nowrap">{user.userName}</td>
-                <td className="w-24 p-3 text-sm text-gray-700 whitespace-nowrap">{user.service}</td>
-                <td className="w-8 p-3 text-sm text-gray-700 whitespace-nowrap">{user.value}</td>
-                <td className="w-8 p-3 text-sm text-gray-700 whitespace-nowrap">{user.instalment}</td>
-                <UsersTableInfos infos={user.instalmentInfos} />
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
+    <Table
+      columns={columns}
+      dataSource={data} 
+      pagination={false}
+      expandable={{
+        rowExpandable: (user) => true,
+        expandedRowRender: (user, index) => <Table bordered columns={nestedColumns} dataSource={nestedData[index]} pagination={false}/>
+      }}
+    />
+
   );
 }
