@@ -1,30 +1,7 @@
 import axios from "axios";
-
-import {
-  Button,
-  Cascader,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Switch,
-  TreeSelect,
-  Popconfirm,
-  Space,
-  Row,
-  Col
-} from 'antd';
-import React, { FormEventHandler, useState } from 'react';
-
-type SizeType = Parameters<typeof Form>[0]['size'];
+import { Button, DatePicker, Form, Input, InputNumber, Select, Switch, Row, Col} from 'antd';
 
 export function ServiceForm(props: any) {
-  const onChange = (value: number | string) => {
-    console.log('changed', value);
-  };
-
   const submitForm = async (values: any) => {
     try {
       const bodyToPost = {
@@ -36,27 +13,15 @@ export function ServiceForm(props: any) {
         firsPaymentDay: values.dia,
         payed: values.checked == true ? true : false
       }
-      console.log(values);
-      console.log(bodyToPost);
-      await axios.post(import.meta.env.VITE_DB_URL || 'http://localhost:3001/users', bodyToPost);
 
+      await axios.post(import.meta.env.VITE_DB_URL || 'http://localhost:3001/users', bodyToPost);
     } catch (error) {
       console.log(error);
-      
     } finally{
       document.location.reload();
     }
   };
 
-
-  async function handleDelete(): Promise<void> {
-    try {
-      await axios.post(`${import.meta.env.VITE_DB_URL}/${props.user.key}`)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  
   return (
     <Form
       size={"middle"}

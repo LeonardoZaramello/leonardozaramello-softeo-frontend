@@ -1,18 +1,6 @@
 import { isAfter, isBefore } from 'date-fns'
-import {
-  Button,
-  Col,
-  DatePicker,
-  Divider,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-  Space,
-  Switch,
-} from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Button, DatePicker, Form, Row } from 'antd';
+import { useState } from 'react';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -24,16 +12,16 @@ export function UtilForm(props: any) {
     const dia2 = new Date(values.dia2._d);
     const paymentsList: any = []
 
+    // Get all payments
     props.users.map((user: { instalmentInfos: []; }) => paymentsList.push(...user.instalmentInfos))
     let price = 0
-    
+    // Filter all payments
     paymentsList.map((payment: {value: number; paymentDay: number; }) => {
       if(isAfter(new Date(payment.paymentDay), dia1) && isBefore(new Date(payment.paymentDay), dia2)){
         price += payment.value
-      } else {
-        console.log('nao');
       }
     })
+
     setValue(price)
   };
 
@@ -49,7 +37,7 @@ export function UtilForm(props: any) {
           rules={[
             {
               required: true,
-              message: 'Informe o dia do 1º pagamento'
+              message: 'Informe a primeira data'
             },
           ]}
           hasFeedback
@@ -62,14 +50,13 @@ export function UtilForm(props: any) {
           rules={[
             {
               required: true,
-              message: 'Informe o dia do 1º pagamento'
+              message: 'Informe a segunda data'
             },
           ]}
           hasFeedback
         >
           <DatePicker />
         </Form.Item>
-
         <Form.Item
           label="Enviar"
         >

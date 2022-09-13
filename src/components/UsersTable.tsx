@@ -1,9 +1,7 @@
 import {Button, Popconfirm, Table} from 'antd'
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
-import {format, intlFormat} from 'date-fns'
-import { useEffect, useState } from 'react';
-import { DeleteButton } from './DeleteButton';
+import {format} from 'date-fns'
 
 interface user {
   _id: string
@@ -25,17 +23,17 @@ type User<T> = {
 
 export function UsersTable<T extends user>(props: User<T>) {
 
-  async function handleDeleteInstalment(record:any): Promise<void> {
-    try {
-      console.log(record);
+  // async function handleDeleteInstalment(record:any): Promise<void> {
+  //   try {
+  //     console.log(record);
       
-      // await axios.delete(`${import.meta.env.VITE_DB_URL}/${user.key}`)
-    } catch (error) {
-      console.log(error);
-    } finally {
-      document.location.reload();
-    }
-  }
+  //     // await axios.delete(`${import.meta.env.VITE_DB_URL}/${user.key}`)
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     document.location.reload();
+  //   }
+  // }
 
   async function handleDelete(user: DataType): Promise<void> {
     try {
@@ -106,18 +104,18 @@ export function UsersTable<T extends user>(props: User<T>) {
       title: 'Action',
       dataIndex: 'action',
       align: 'center',
-      render: (_, record) => {    
-        return (    
-        <Popconfirm 
-          title={'Tem certeza que deseja deletar?'}
-          onConfirm={() => handleDeleteInstalment(record)}
-        >
-          <Button danger type="primary" size="small">
-            Delete
-          </Button>
-        </Popconfirm>
-        )
-      },
+      // render: (_, record) => {    
+      //   return (    
+      //   <Popconfirm 
+      //     title={'Tem certeza que deseja deletar?'}
+      //     onConfirm={() => handleDeleteInstalment(record)}
+      //   >
+      //     <Button danger type="primary" size="small">
+      //       Delete
+      //     </Button>
+      //   </Popconfirm>
+      //   )
+      // },
     },
   ];
 
@@ -161,6 +159,5 @@ export function UsersTable<T extends user>(props: User<T>) {
         expandedRowRender: (user, index) => <Table bordered columns={nestedColumns} dataSource={nestedData[index]} pagination={false}/>
       }}
     />
-
   );
 }
