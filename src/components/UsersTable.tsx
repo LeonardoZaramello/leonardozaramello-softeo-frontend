@@ -8,6 +8,7 @@ import { DeleteButton } from './DeleteButton';
 interface user {
   _id: string
   userName: string
+  email: string
   service: string
   value: number
   instalment: number
@@ -31,6 +32,8 @@ export function UsersTable<T extends user>(props: User<T>) {
       // await axios.delete(`${import.meta.env.VITE_DB_URL}/${user.key}`)
     } catch (error) {
       console.log(error);
+    } finally {
+      document.location.reload();
     }
   }
 
@@ -39,34 +42,38 @@ export function UsersTable<T extends user>(props: User<T>) {
       await axios.delete(`${import.meta.env.VITE_DB_URL}/${user.key}`)
     } catch (error) {
       console.log(error);
+    } finally {
+      document.location.reload();
     }
   }
   
   interface DataType {
-    key: React.Key;
-    cliente: string;
-    serviço: string;
-    valor: number;
-    parcelas: number;
-    data: string;
+    key: React.Key
+    cliente: string
+    email: string
+    serviço: string
+    valor: number
+    parcelas: number
+    data: string
   }
   interface nestedDataType {
-    key: React.Key;
-    parcela: string;
-    valor: string;
-    dia: number;
-    pago: string;
+    key: React.Key
+    parcela: string
+    valor: string
+    dia: number
+    pago: string
   }
 
   type nestedType = {
-    number: number;
-    value: string;
-    paymentDay: string;
-    payed: boolean;
+    number: number
+    value: string
+    paymentDay: string
+    payed: boolean
   }
 
   const columns: ColumnsType<DataType> = [
     { title: 'Cliente', dataIndex: 'cliente', key: 'cliente' },
+    { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Serviço', dataIndex: 'serviço', key: 'serviço' },
     { title: 'Valor', dataIndex: 'valor', key: 'valor' },
     { title: 'Parcelas', dataIndex: 'parcelas', key: 'parcelas' },
@@ -121,6 +128,7 @@ export function UsersTable<T extends user>(props: User<T>) {
     const userBody = {
       key: user._id,
       cliente: user.userName,
+      email: user.email,
       serviço: user.service,
       valor: user.value,
       parcelas: user.instalment,
