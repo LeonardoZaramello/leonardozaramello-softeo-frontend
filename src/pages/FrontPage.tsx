@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ServiceForm } from "../components/ServiceForm";
 import { UsersTable } from "../components/UsersTable";
+import { UtilForm } from "../components/UtilForm";
 
 export function FrontPage() {
   const [users, setUsers] = useState([]);
@@ -28,6 +29,7 @@ export function FrontPage() {
       <h1 className="text-xl mb-2">Caderno de Anotações</h1>
       <ServiceForm />
       <UsersTable users={users}/>
+      <UtilForm users={users}/>
     </div>
   );
 }
