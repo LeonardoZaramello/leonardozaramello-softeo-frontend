@@ -85,7 +85,7 @@ export function ServiceForm(props: any) {
               <Select.Option value="Limpeza">Limpeza</Select.Option>
               <Select.Option value="Obturação">Obturação</Select.Option>
               <Select.Option value="Sutura">Sutura</Select.Option>
-              <Select.Option value="CRemoção dos cisos">Remoção dos cisos</Select.Option>
+              <Select.Option value="Remoção dos cisos">Remoção dos cisos</Select.Option>
             </Select>
           </Form.Item>
         </Col>
