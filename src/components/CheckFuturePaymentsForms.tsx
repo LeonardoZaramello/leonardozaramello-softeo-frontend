@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
-export function UtilForm(props: any) {
+export function CheckFuturePaymentsForms(props: any) {
   const [value, setValue] = useState(0)
   
   const submitForm = async (values: any) => {
@@ -65,7 +65,7 @@ export function UtilForm(props: any) {
       </Row>
         {
           value > 0 &&
-          <h2>{`Valor total à receber: ${value}`}</h2>
+          <h2>{`Valor total a receber: ${value}`}</h2>
         }
     </Form>
   );
