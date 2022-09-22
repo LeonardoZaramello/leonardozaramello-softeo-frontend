@@ -24,7 +24,6 @@ export function FrontPage() {
     fetchApi();
   }, []);
   
-  console.log(users);
   return (
     <div>
       <h1 className="text-xl mb-2">Caderno de Anotações</h1>
