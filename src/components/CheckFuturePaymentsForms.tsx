@@ -1,19 +1,23 @@
 import { isAfter, isBefore } from 'date-fns'
 import { Button, DatePicker, Form, Row } from 'antd';
 import { useState } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
+import {user} from '../Interfaces/Interfaces'
 
-type SizeType = Parameters<typeof Form>[0]['size'];
+type User<T> = {
+  users: T[]
+}
 
-export function CheckFuturePaymentsForms(props: any) {
+export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
   const [value, setValue] = useState(0)
   
-  const submitForm = async (values: any) => {
+  const submitForm = async (values: { dia1: { _d: string | number | Date }; dia2: { _d: string | number | Date } }) => {
     const dia1 = new Date(values.dia1._d);
     const dia2 = new Date(values.dia2._d);
     const paymentsList: any = []
 
     // Get all payments
-    props.users.map((user: { instalmentInfos: []; }) => paymentsList.push(...user.instalmentInfos))
+    users.map((user: { instalmentInfos: []; }) => paymentsList.push(...user.instalmentInfos))
     let price = 0
     // Filter all payments
     paymentsList.map((payment: {value: number; paymentDay: number; }) => {
@@ -60,12 +64,13 @@ export function CheckFuturePaymentsForms(props: any) {
         <Form.Item
           label="Enviar"
         >
-          <Button htmlType="submit" >Enviar</Button>
+          <Button htmlType="submit" type="primary" icon={<SearchOutlined />} ></Button>
         </Form.Item>
       </Row>
         {
-          value > 0 &&
-          <h2>{`Valor total a receber: ${value}`}</h2>
+          value > 0 ?
+          <h2>{`Valor total a receber: R$ ${value}`}</h2> :
+          <h2>{`Nada a receber no período informado`}</h2>
         }
     </Form>
   );

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { Button, DatePicker, Form, Input, InputNumber, Select, Switch, Row, Col} from 'antd';
+import { Button, DatePicker, Form, Input, InputNumber, Select, Switch, Row, Col, Space} from 'antd';
+import { FileAddOutlined } from "@ant-design/icons";
 
 export function ServiceForm(props: any) {
   const submitForm = async (values: any) => {
@@ -24,51 +25,51 @@ export function ServiceForm(props: any) {
 
   return (
     <Form
-      size={"middle"}
+      size={"large"}
       onFinish={(values) => submitForm(values) }
     >
-      <Row gutter={24}>
-        <Col span={12}>
-          <Form.Item 
-            label="Cliente"
-            name="cliente"
-            rules={[
-              {
-                required: true,
-                message: 'Insira um nome'
-              },
-              {
-                min: 3,
-                message: 'Cliente com no mínimo 3 letras'
-              }
-            ]}
-            hasFeedback
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item 
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Insira um email'
-              },
-              {
-                type: "email",
-                message: 'Insira um email com formato válido'
-              },
-            ]}
-            hasFeedback
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-      </Row>
+        <Row gutter={12}>
+          <Col span={12}>
+            <Form.Item
+              label="Cliente"
+              name="cliente"
+              rules={[
+                {
+                  required: true,
+                  message: 'Insira um nome'
+                },
+                {
+                  min: 3,
+                  message: 'Cliente com no mínimo 3 letras'
+                }
+              ]}
+              hasFeedback
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item 
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: 'Insira um email'
+                },
+                {
+                  type: "email",
+                  message: 'Insira um email com formato válido'
+                },
+              ]}
+              hasFeedback
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
 
-      <Row gutter={24}>
+      <Row gutter={8}>
         <Col span={12}>
           <Form.Item
             label="Serviço"
@@ -90,40 +91,45 @@ export function ServiceForm(props: any) {
           </Form.Item>
         </Col>
         <Col>
-          <Form.Item
+          <Form.Item label="Valor">
+            <Form.Item
+              noStyle
+              name="valor"
+              rules={[
+                {
+                  required: true,
+                  message: 'Informe um valor'
+                },
+              ]}
+              hasFeedback
+              >
 
-            label="Valor"
-            name="valor"
-            rules={[
-              {
-                required: true,
-                message: 'Informe um valor'
-              },
-            ]}
-            hasFeedback
-            >
-            <InputNumber
-              style={{ width: 120 }}
-              defaultValue={1000}
-              formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            />
+              <InputNumber
+                style={{ width: 120 }}
+                defaultValue={1000}
+                formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              />
+            </Form.Item>
           </Form.Item>
         </Col>
         <Col>
-          <Form.Item
-            label="Parcelas"
-            name="parcelas"
-            rules={[
-              {
-                required: true,
-                message: 'Informe o número de parcelas'
-              },
-            ]}
-            hasFeedback
-          >
-            <InputNumber min={1} max={24}/>
+          <Form.Item label="Parcelas">
+            <Form.Item
+              noStyle
+              name="parcelas"
+              rules={[
+                {
+                  required: true,
+                  message: 'Informe o número de parcelas'
+                },
+              ]}
+              hasFeedback
+            >
+              <InputNumber min={1} max={24}/>
+            </Form.Item>
           </Form.Item>
         </Col>
+
       </Row>
       <Row gutter={8}>
         <Col>
@@ -151,11 +157,13 @@ export function ServiceForm(props: any) {
           </Form.Item>
         </Col>
       </Row>
-          <Form.Item
-            label="Enviar"
-          >
-            <Button htmlType="submit" >Salvar</Button>
-          </Form.Item>
+      <Space align="center">
+        <Form.Item
+          label="Enviar"
+        >
+          <Button htmlType="submit" type="primary" icon={<FileAddOutlined/>}></Button>
+        </Form.Item>
+      </Space>
     </Form>
   );
 }

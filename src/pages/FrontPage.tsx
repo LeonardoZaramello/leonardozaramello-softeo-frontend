@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ServiceForm } from "../components/ServiceForm";
 import { UsersTable } from "../components/UsersTable";
 import { CheckFuturePaymentsForms } from "../components/CheckFuturePaymentsForms";
+import { Col, Row } from "antd";
 
 export function FrontPage() {
   const [users, setUsers] = useState([]);
@@ -27,9 +28,11 @@ export function FrontPage() {
   return (
     <div>
       <h1 className="text-xl mb-2">Caderno de Anotações</h1>
-      <ServiceForm />
-      <UsersTable users={users}/>
-      <CheckFuturePaymentsForms users={users}/>
+      <Col span={22} offset={1}>
+        <ServiceForm />
+        <UsersTable users={users}/>
+        <CheckFuturePaymentsForms users={users}/>
+      </Col>
     </div>
   );
 }
