@@ -37,7 +37,7 @@ export interface nestedDataType {
   pago: string
 }
 
-export type nestedType = {
+export interface nestedType {
   number: number
   value: string
   paymentDay: string

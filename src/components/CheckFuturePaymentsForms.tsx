@@ -10,7 +10,9 @@ type User<T> = {
 
 export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
   const [value, setValue] = useState(0)
+  const [searched, setSearched] = useState(false)
   
+  //Func calc valor to receive
   const submitForm = async (values: { dia1: { _d: string | number | Date }; dia2: { _d: string | number | Date } }) => {
     const dia1 = new Date(values.dia1._d);
     const dia2 = new Date(values.dia2._d);
@@ -27,8 +29,11 @@ export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
     })
 
     setValue(price)
+    setSearched(true)   
   };
 
+  console.log(searched);
+  
   return (
     <Form
       onFinish={(values) => submitForm(values)}
@@ -62,15 +67,15 @@ export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
           <DatePicker />
         </Form.Item>
         <Form.Item
-          label="Enviar"
+          label="Pesquisar"
         >
           <Button htmlType="submit" type="primary" icon={<SearchOutlined />} ></Button>
         </Form.Item>
       </Row>
         {
-          value > 0 ?
-          <h2>{`Valor total a receber: R$ ${value}`}</h2> :
-          <h2>{`Nada a receber no período informado`}</h2>
+          searched == true && value > 0  ? <h2>{`Valor total a receber: R$ ${value}`}</h2> :
+          searched == true && value === 0  ? <h2>{`Nada a receber entre os períodos informados`}</h2> :
+          null
         }
     </Form>
   );
