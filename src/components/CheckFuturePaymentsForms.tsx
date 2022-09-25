@@ -32,8 +32,6 @@ export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
     setSearched(true)   
   };
 
-  console.log(searched);
-  
   return (
     <Form
       onFinish={(values) => submitForm(values)}
