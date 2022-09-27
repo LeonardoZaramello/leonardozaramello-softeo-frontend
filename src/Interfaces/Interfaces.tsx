@@ -1,11 +1,3 @@
-export interface userListInfos {
-  key: number
-  parcela: number
-  valor: string
-  dia: string
-  pago: string
-}
-
 export interface user {
   _id: string
   userName: string
@@ -17,7 +9,14 @@ export interface user {
   payed: boolean
   createdAt: Date
   updatedAt: Date
-  instalmentInfos: []
+  instalmentInfos: userInstalmentInfosType[]
+}
+
+export interface userInstalmentInfosType extends nestedType {
+  parcela: number
+  valor: number
+  dia: string
+  pago: string
 }
 
 export interface DataType {
@@ -31,17 +30,15 @@ export interface DataType {
 }
 export interface nestedDataType {
   key: React.Key
-  parcela: string
-  valor: string
-  dia: number
+  parcela: number
+  valor: number
+  dia: string
   pago: string
 }
 
 export interface nestedType {
   number: number
-  value: string
+  value: number
   paymentDay: string
   payed: boolean
 }
-
-

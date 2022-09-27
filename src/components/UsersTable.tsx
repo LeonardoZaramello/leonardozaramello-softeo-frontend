@@ -2,7 +2,7 @@ import {Button, Popconfirm, Table} from 'antd'
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
 import {format} from 'date-fns'
-import {user, userListInfos, DataType, nestedDataType, nestedType} from '../Interfaces/Interfaces'
+import {user, DataType, nestedDataType, nestedType, userInstalmentInfosType} from '../Interfaces/Interfaces'
 
 type User<T> = {
   users: T[]
@@ -59,7 +59,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
   ];
 
   const data: DataType[] = [];
-  const nestedData: any = [];
+  const nestedData: nestedDataType[][] = [];
 
   users?.map((user, index) =>{
     const userBody = {
@@ -72,7 +72,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
       data: format(new Date(user.firsPaymentDay), "dd/MM/yyyy"),
     }
 
-    const userListInfos: userListInfos[] = []
+    const userListInfos: nestedDataType[] = []
 
     user.instalmentInfos.map((info: nestedType,index:number) => {
       const userInfos = {

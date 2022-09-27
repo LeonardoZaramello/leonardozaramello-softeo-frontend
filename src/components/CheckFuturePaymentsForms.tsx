@@ -2,7 +2,7 @@ import { isAfter, isBefore } from 'date-fns'
 import { Button, DatePicker, Form, Row } from 'antd';
 import { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import {user} from '../Interfaces/Interfaces'
+import {nestedType, user, userInstalmentInfosType} from '../Interfaces/Interfaces'
 
 type User<T> = {
   users: T[]
@@ -13,18 +13,18 @@ export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
   const [searched, setSearched] = useState(false)
   
   //Func calc valor to receive
-  const submitForm = async (values: { dia1: { _d: string | number | Date }; dia2: { _d: string | number | Date } }) => {
+  const submitForm = async (values: { dia1: { _d: string }; dia2: { _d: string } }) => {
     const dia1 = new Date(values.dia1._d);
     const dia2 = new Date(values.dia2._d);
-    const paymentsList: any = []
+    const paymentsList: nestedType[] = []
+    let price = 0
 
     // Get all payments
-    users.map((user: { instalmentInfos: []; }) => paymentsList.push(...user.instalmentInfos))
-    let price = 0
+    users.map(({ instalmentInfos }) => paymentsList.push(...instalmentInfos))
     // Filter all payments
-    paymentsList.map((payment: {value: number; paymentDay: number; }) => {
-      if(isAfter(new Date(payment.paymentDay), dia1) && isBefore(new Date(payment.paymentDay), dia2)){
-        price += payment.value
+    paymentsList.map(({paymentDay, value}) => {
+      if(isAfter(new Date(paymentDay), dia1) && isBefore(new Date(paymentDay), dia2)){
+        price += value
       }
     })
 
