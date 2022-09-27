@@ -1,4 +1,4 @@
-import {Button, Popconfirm, Table} from 'antd'
+import {Badge, Button, Popconfirm, Table} from 'antd'
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
 import {format} from 'date-fns'
@@ -24,7 +24,9 @@ export function UsersTable<T extends user>({users}: User<T>) {
     { title: 'Cliente', dataIndex: 'cliente', key: 'cliente' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Serviço', dataIndex: 'serviço', key: 'serviço' },
-    { title: 'Valor', dataIndex: 'valor', key: 'valor' },
+    { title: 'Valor', dataIndex: 'valor', key: 'valor', render: (value) => (
+      `R$ ${value}`
+    ), },
     { title: 'Parcelas', dataIndex: 'parcelas', key: 'parcelas' },
     { title: 'Data', dataIndex: 'data', key: 'data' },
     {
@@ -48,7 +50,9 @@ export function UsersTable<T extends user>({users}: User<T>) {
 
   const nestedColumns: ColumnsType<nestedDataType> = [
     { title: 'Parcela', dataIndex: 'parcela', key: 'parcela' },
-    { title: 'Valor', dataIndex: 'valor', key: 'valor' },
+    { title: 'Valor', dataIndex: 'valor', key: 'valor', render: (value) => (
+      `R$ ${value}`
+    ), },
     { title: 'Dia', dataIndex: 'dia', key: 'dia' },
     { title: 'Pago', dataIndex: 'pago', key: 'pago' },
     {
