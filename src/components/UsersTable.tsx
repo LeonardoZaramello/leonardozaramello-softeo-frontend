@@ -12,7 +12,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
 
   async function handleDelete(user: DataType): Promise<void> {
     try {
-      await axios.delete(`http://localhost:3001/users/${user.key}` || `${import.meta.env.VITE_DB_URL}/users/${user.key}`)
+      await axios.delete(`${import.meta.env.VITE_DB_URL}/users/${user.key}` || `http://localhost:3001/users/${user.key}`)
     } catch (error) {
       console.log(error);
     } finally {
