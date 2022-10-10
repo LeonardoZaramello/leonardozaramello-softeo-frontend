@@ -12,7 +12,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
 
   async function handleDelete(user: DataType): Promise<void> {
     try {
-      await axios.delete(`${import.meta.env.VITE_DB_URL}/${user.key}`)
+      await axios.delete(`http://localhost:3001/users/${user.key}` || `${import.meta.env.VITE_DB_URL}/users/${user.key}`)
     } catch (error) {
       console.log(error);
     } finally {
@@ -30,7 +30,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
     { title: 'Parcelas', dataIndex: 'parcelas', key: 'parcelas' },
     { title: 'Data', dataIndex: 'data', key: 'data' },
     {
-      title: 'Action',
+      title: 'Ações',
       dataIndex: 'action',
       align: 'center',
       render: (_, user) => {    
@@ -40,7 +40,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
           onConfirm={() => handleDelete(user)}
         >
           <Button danger type="primary">
-            Delete
+            Deletar
           </Button>
         </Popconfirm>
         )
@@ -53,10 +53,10 @@ export function UsersTable<T extends user>({users}: User<T>) {
     { title: 'Valor', dataIndex: 'valor', key: 'valor', render: (value) => (
       `R$ ${value}`
     ), },
-    { title: 'Dia', dataIndex: 'dia', key: 'dia' },
+    { title: 'Data', dataIndex: 'data', key: 'data' },
     { title: 'Pago', dataIndex: 'pago', key: 'pago' },
     {
-      title: 'Action',
+      title: 'Ações',
       dataIndex: 'action',
       align: 'center',
     },
@@ -83,7 +83,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
         key: index,
         parcela: info.number,
         valor: info.value,
-        dia: format(new Date(info.paymentDay), "dd/MM/yyyy"),
+        data: format(new Date(info.paymentDay), "dd/MM/yyyy"),
         pago: info.payed ? 'Pago': 'Pendente',
       }
       userListInfos.push(userInfos)

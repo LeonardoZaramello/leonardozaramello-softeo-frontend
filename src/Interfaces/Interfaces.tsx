@@ -32,7 +32,7 @@ export interface nestedDataType {
   key: React.Key
   parcela: number
   valor: number
-  dia: string
+  data: string
   pago: string
 }
 

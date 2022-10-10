@@ -15,7 +15,7 @@ export function ServiceForm(props: any) {
         payed: values.checked == true ? true : false
       }
 
-      await axios.post(import.meta.env.VITE_DB_URL || 'http://localhost:3001/users', bodyToPost);
+      await axios.post('http://localhost:3001/users' || `${import.meta.env.VITE_DB_URL}/users`, bodyToPost);
     } catch (error) {
       console.log(error);
     } finally{
