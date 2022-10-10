@@ -1,8 +1,9 @@
-import {Badge, Button, Popconfirm, Table} from 'antd'
+import {Button, Popconfirm, Table} from 'antd'
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
 import {format} from 'date-fns'
-import {user, DataType, nestedDataType, nestedType, userInstalmentInfosType} from '../Interfaces/Interfaces'
+import { ENVIRONMENT_URL } from '../api/config';
+import {user, DataType, nestedDataType, nestedType} from '../Interfaces/Interfaces'
 
 type User<T> = {
   users: T[]
@@ -12,7 +13,7 @@ export function UsersTable<T extends user>({users}: User<T>) {
 
   async function handleDelete(user: DataType): Promise<void> {
     try {
-      await axios.delete(`${import.meta.env.VITE_DB_URL}/users/${user.key}` || `http://localhost:3001/users/${user.key}`)
+      await axios.delete(`${ENVIRONMENT_URL}/users/${user.key}`)
     } catch (error) {
       console.log(error);
     } finally {

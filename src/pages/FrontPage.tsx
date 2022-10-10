@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import { ServiceForm } from "../components/ServiceForm";
 import { UsersTable } from "../components/UsersTable";
 import { CheckFuturePaymentsForms } from "../components/CheckFuturePaymentsForms";
-import { Col, Row } from "antd";
+import { Col } from "antd";
+import {ENVIRONMENT_URL} from "../api/config";
 
 export function FrontPage() {
   const [users, setUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
+
   useEffect(() => {
-    const fetchApi = async () => {
+    const getAllUsers = async () => {
       try {
-        const users = await axios.get(`${import.meta.env.VITE_DB_URL}/users` || 'http://localhost:3001/users');
+        const users = await axios.get(`${ENVIRONMENT_URL}/users`);
+        // const users = await axios.get(`${import.meta.env.VITE_DB_URL}/users` || 'http://localhost:3001/users');
         
         setUsers(users.data);
       } catch (error) {
@@ -21,7 +24,7 @@ export function FrontPage() {
       }
     }
 
-    fetchApi();
+    getAllUsers();
   }, []);
   
   return (

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Button, DatePicker, Form, Input, InputNumber, Select, Switch, Row, Col, Space} from 'antd';
 import { FileAddOutlined } from "@ant-design/icons";
+import { ENVIRONMENT_URL } from "../api/config";
 
 export function ServiceForm(props: any) {
   const submitForm = async (values: any) => {
@@ -15,7 +16,7 @@ export function ServiceForm(props: any) {
         payed: values.checked == true ? true : false
       }
 
-      await axios.post(`${import.meta.env.VITE_DB_URL}/users` || 'http://localhost:3001/users', bodyToPost);
+      await axios.post(`${ENVIRONMENT_URL}/users`, bodyToPost);
     } catch (error) {
       console.log(error);
     } finally{
