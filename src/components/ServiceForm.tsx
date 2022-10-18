@@ -2,9 +2,10 @@ import axios from "axios";
 import { Button, DatePicker, Form, Input, InputNumber, Select, Switch, Row, Col, Space} from 'antd';
 import { FileAddOutlined } from "@ant-design/icons";
 import { ENVIRONMENT_URL } from "../api/config";
+import { userFrontToPost } from "../Interfaces/Interfaces";
 
-export function ServiceForm(props: any) {
-  const submitForm = async (values: any) => {
+export function ServiceForm() {
+  const submitForm = async (values: userFrontToPost) => {
     try {
       const bodyToPost = {
         userName: values.cliente,

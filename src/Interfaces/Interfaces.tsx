@@ -12,6 +12,16 @@ export interface user {
   instalmentInfos: userInstalmentInfosType[]
 }
 
+export interface userFrontToPost {
+  cliente: string
+  email: string
+  servico: string
+  valor: number
+  parcelas: number
+  checked: boolean
+  dia: Date
+}
+
 export interface userInstalmentInfosType extends nestedType {
   parcela: number
   valor: number

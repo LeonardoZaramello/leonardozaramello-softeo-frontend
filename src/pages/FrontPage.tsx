@@ -15,7 +15,6 @@ export function FrontPage() {
     const getAllUsers = async () => {
       try {
         const users = await axios.get(`${ENVIRONMENT_URL}/users`);
-        // const users = await axios.get(`${import.meta.env.VITE_DB_URL}/users` || 'http://localhost:3001/users');
         
         setUsers(users.data);
       } catch (error) {
