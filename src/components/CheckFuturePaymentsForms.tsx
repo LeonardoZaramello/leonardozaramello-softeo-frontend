@@ -52,7 +52,7 @@ export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
           <DatePicker/>
         </Form.Item>
         <Form.Item
-          label="1º Data"
+          label="2º Data"
           name="dia2"
           rules={[
             {
