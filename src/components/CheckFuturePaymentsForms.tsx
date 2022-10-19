@@ -28,8 +28,8 @@ export function CheckFuturePaymentsForms<T extends user>({users}: User<T>) {
       }
     })
 
-    setValue(price)
-    setSearched(true)   
+    setValue(Math.round(price * 100)/100)
+    setSearched(true)
   };
 
   return (
