@@ -27,15 +27,13 @@ export function FrontPage() {
   }, []);
   
   return (
-    <div>
-      <div style={{ marginTop: '20px' }}>
-        <h6 style={{ display: 'flex', fontFamily: 'verdana', fontSize: 40, justifyContent: 'center' }}>Caderno de Anotações</h6>  
-        <Col span={22} offset={1}>
-          <ServiceForm />
-          <UsersTable users={users}/>
-          <CheckFuturePaymentsForms users={users}/>
-        </Col>
-      </div>
+    <div style={{ marginTop: '20px' }}>
+      <h6 style={{ display: 'flex', fontFamily: 'verdana', fontSize: 40, justifyContent: 'center' }}>Caderno de Anotações</h6>  
+      <Col span={22} offset={1}>
+        <ServiceForm />
+        <UsersTable users={users}/>
+        <CheckFuturePaymentsForms users={users}/>
+      </Col>
     </div>
   );
 }
