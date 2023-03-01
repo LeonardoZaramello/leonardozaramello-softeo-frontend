@@ -28,11 +28,13 @@ export function FrontPage() {
   
   return (
     <div>
-      <Col span={22} offset={1}>
-        <ServiceForm />
-        <UsersTable users={users}/>
-        <CheckFuturePaymentsForms users={users}/>
-      </Col>
+      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Col span={22} offset={1}>
+          <ServiceForm />
+          <UsersTable users={users}/>
+          <CheckFuturePaymentsForms users={users}/>
+        </Col>
+      </Space>
     </div>
   );
 }
