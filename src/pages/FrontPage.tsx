@@ -28,7 +28,6 @@ export function FrontPage() {
   
   return (
     <div>
-      <Title>Caderno de Anotações</Title>
       <Col span={22} offset={1}>
         <ServiceForm />
         <UsersTable users={users}/>
